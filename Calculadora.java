@@ -3,7 +3,6 @@ import java.util.*;
 import java.util.Stack;
 public class Calculadora<T> implements IPosfixCalculator<T>{
 
-    private Stack<Integer> pila;
     public List<Character> infixToPostfix(List<Character> infix){
         Map<Character, Integer>precedence = new HashMap<>();
         precedence.put('^',3);
@@ -19,20 +18,20 @@ public class Calculadora<T> implements IPosfixCalculator<T>{
             char c = infix.get(i);
             if(Character.isLetterOrDigit(c)){
                 postfix.add(c);
-            }else if(c=='('){
+            }else if(c =='('){
                 operatorStack.push(c);
-            } else if (c==')') {
-                while(!operatorStack.isEmpty()&&operatorStack.peek()!='('){
+            } else if (c ==')') {
+                while(!operatorStack.isEmpty() && operatorStack.peek() !='('){
                     postfix.add(operatorStack.pop());
                 }
-                if(!operatorStack.isEmpty()&&operatorStack.peek()!='('){
+                if(!operatorStack.isEmpty() &&operatorStack.peek() !='('){
                     throw new IllegalArgumentException("Expresion invalida");
                 }else{
                     operatorStack.pop();
                 }
             }else{
-                while(!operatorStack.isEmpty()&&precedence.get(c)<=precedence.get(operatorStack.peek())){
-                    if(operatorStack.peek()=='('){
+                while(!operatorStack.isEmpty() && precedence.get(c) <= precedence.get(operatorStack.peek())){
+                    if(operatorStack.peek() == '('){
                         throw new IllegalArgumentException("Expresion invalida");
                     }
                     postfix.add(operatorStack.pop());
@@ -50,54 +49,33 @@ public class Calculadora<T> implements IPosfixCalculator<T>{
         return postfix;
     }
     @Override
-    public int Calculate(ArrayList<T> postfix_expression) throws Exception {
-        Integer resultadoFinal = 0;
-        for (int i = 0; i<postfix_expression.size(); i++){
+    public int Calculate(ArrayList<Character> postfix) {
+        Stack<Integer> stack = new Stack<>();
 
-            Character[] charArray = postfix_expression.toArray(new Character[postfix_expression.size()]);
-
-            if(charArray.length < 5){
-                throw new Exception("Valores insuficientes para realizar la operacion.");
+        for (char token : postfix) {
+            if (Character.isDigit(token)) {
+                stack.push(Character.getNumericValue(token));
+            } else if (token == '+' || token == '-' || token == '*' || token == '/' ) {
+                int operand2 = stack.pop();
+                int operand1 = stack.pop();
+                switch (token) {
+                    case '+':
+                        stack.push(operand1+operand2);
+                        break;
+                    case '-':
+                        stack.push(operand1-operand2);
+                        break;
+                    case '*':
+                        stack.push(operand1*operand2);
+                        break;
+                    case '/':
+                        stack.push(operand1/operand2);
+                        break;
+                }
             }
-
-            pila = new Stack<Integer>();
-            for (int j = 0; j<charArray.length; j++){
-
-                if(charArray[j] == '+'){
-
-                    Integer operandoB = pila.pop();
-                    Integer operandoA = pila.pop();
-                    Integer resultadoDeSuma = operandoA+operandoB;
-                    System.out.println("El resultado de la suma es " + resultadoDeSuma);
-                    pila.push(resultadoDeSuma);
-                }
-                else if(charArray[j] == '-'){
-                    if(pila.size() < 2){
-                        throw new Exception("Valores insuficientes para realizar la operacion.");
-                    }
-                    Integer operandoB = pila.pop();
-                    Integer operandoA = pila.pop();
-                    Integer resultadoDeResta = operandoA-operandoB;
-                    System.out.println("El resultado de la resta es " + resultadoDeResta);
-                    pila.push(resultadoDeResta);
-                }
-                else if(charArray[j] == '*'){
-                    if(pila.size() < 2){
-                        throw new Exception("Valores insuficientes para realizar la operacion.");
-                    }
-                    Integer operandoB = pila.pop();
-                    Integer operandoA = pila.pop();
-                    pila.push(operandoA*operandoB);
-                    Integer resultadoDeMultiplicacion = operandoA*operandoB;
-                    System.out.println("El resultado de la multiplicacion es " + resultadoDeMultiplicacion);
-                    pila.push(resultadoDeMultiplicacion);
-                }
-
-            }
-            resultadoFinal = pila.pop();
-            System.out.println("El resultado de la operacion completa es  " + resultadoFinal);
-
         }
-        return resultadoFinal;
+
+        return stack.pop();
     }
 }
+

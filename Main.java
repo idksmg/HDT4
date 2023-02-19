@@ -33,9 +33,8 @@ public class Main {
             }
             myReader.close();
             try{
-                myCalculator.infixToPostfix(listaDeCadenas);
-                Integer resultado = myCalculator.Calculate(listaDeCadenas);
-                System.out.println(resultado);
+                listaDeCadenas = (ArrayList<Character>) myCalculator.infixToPostfix(listaDeCadenas);
+                System.out.println(myCalculator.Calculate(listaDeCadenas));
             }
             catch(Exception e){
                 System.out.println(e.getMessage());
