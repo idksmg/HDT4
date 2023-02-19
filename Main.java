@@ -12,7 +12,7 @@ public class Main {
         FactoryStack<String> sFractory = new FactoryStack<String>();
         IPosfixCalculator myCalculator = new Calculadora();
         Scanner in = new Scanner(System.in);
-        ArrayList<String> listaDeCadenas = new ArrayList<String>();
+        ArrayList<Character> listaDeCadenas = new ArrayList<Character>();
         System.out.println("Ingrese el tipo de Stack a utilizar, ej AL(ArrayList), VEC(Vector), LIST(Lista)");
         String opcion = in.nextLine();
         sFractory.getStack(opcion);
@@ -24,13 +24,16 @@ public class Main {
         try{
             File myObj = new File(fpath);
             Scanner myReader = new Scanner(myObj);
-            while(myReader.hasNextLine()){
+            while(myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                listaDeCadenas.add(data);
+                for (char c : data.toCharArray()){ ;
+                listaDeCadenas.add(c);
+            }
                 System.out.println(data);
             }
             myReader.close();
             try{
+                myCalculator.infixToPostfix(listaDeCadenas);
                 Integer resultado = myCalculator.Calculate(listaDeCadenas);
                 System.out.println(resultado);
             }
