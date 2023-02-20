@@ -45,6 +45,11 @@ public class Calculadora<T> implements IPosfixCalculator<T> {
         return postfix;
     }
 
+    /**
+     * Este método privado sirve para la conversion de infix a postfix, establece el dato numerico de los caracteres dependiendo de cuales sean
+     * @param c
+     * @return Indice numerico dependiendo del tipo de caracter.
+     */
     private static int precedence(Character c) {
         switch (c){
             case '+':
@@ -61,7 +66,11 @@ public class Calculadora<T> implements IPosfixCalculator<T> {
     }
 
 
-
+    /**
+     * Este método realiza el calculo de la expresion ya convertida a postfix en el caso de que se elija de tipo Array o Vector.
+     * @param postfix
+     * @return resultado numerico
+     */
     @Override
     public int Calculate(ArrayList<Character> postfix) {
         Stack<Integer> stack = new Stack<>();
@@ -92,13 +101,11 @@ public class Calculadora<T> implements IPosfixCalculator<T> {
         return stack.pop();
     }
 
-
-    private final List<Character> expression;
-
-    public Calculadora(List<Character> expression) {
-        this.expression = expression;
-    }
-
+    /**
+     * Este método calcula la expresion ya convertida a postfix si se elije una lista ya sea encadenada o doble encadenada.
+     * @param arraypostfix
+     * @return resultado numerico
+     */
     public int CalculateList(ArrayList<Character> arraypostfix){
         Stack<Integer> stack = new Stack<>();
         for(Character token : arraypostfix){
@@ -112,6 +119,14 @@ public class Calculadora<T> implements IPosfixCalculator<T> {
         }
         return stack.pop();
     }
+
+    /**
+     * Este método privado sirve para el calculo de la expresion con listas.
+     * @param operator
+     * @param operando1
+     * @param operando2
+     * @return la operacion a realizar con los operandos dependiendo de el caracter.
+     */
     private int applyOperator(Character operator, int operando1, int operando2){
         switch (operator){
             case '+':

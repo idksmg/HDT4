@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args){
         FactoryStack<String> sFractory = new FactoryStack<String>();
         ArrayList<Character> listaDeCadenas = new ArrayList<Character>();
-        IPosfixCalculator myCalculator = new Calculadora(listaDeCadenas);
+        IPosfixCalculator myCalculator = new Calculadora();
         Scanner in = new Scanner(System.in);
         System.out.println("Ingrese el tipo de Stack a utilizar, ej AL(ArrayList), VEC(Vector), LIST(Lista)");
         String opcion = in.nextLine();

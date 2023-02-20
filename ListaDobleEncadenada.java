@@ -3,6 +3,7 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
    private Node<E> tail;
    private int size;
 
+
    public ListaDobleEncadenada(){
        head=null;
        tail=null;
@@ -21,14 +22,27 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
        }
    }
 
+    /**
+     * Método para obtener el tamaño de la lista
+     * @return size
+     */
    public int size(){
        return size;
    }
 
+    /**
+     * Método de la interfaz de Lista
+     * @return size = 0
+     */
    public boolean isEmpty(){
        return size==0;
    }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param element
+     * @return true or false
+     */
    public boolean contains(E element){
        Node<E> current = head;
        while(current !=null){
@@ -39,6 +53,10 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
        return false;
    }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param element
+     */
    public void add(E element){
        Node<E> newNode = new Node<E>(element);
        if(head==null){
@@ -51,6 +69,12 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
        }
        size++;
    }
+
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @param element
+     */
    public void add(int index, E element){
        if(index<0||index>size){
            throw new IndexOutOfBoundsException();
@@ -86,6 +110,12 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
        }
        size++;
    }
+
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @return dato numerico
+     */
    public E get(int index){
        if(index<0||index>=size){
            throw new IndexOutOfBoundsException();
@@ -97,6 +127,11 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
        return current.data;
    }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @return dato numerico
+     */
    public E remove(int index){
        if(index <0||index>=size){
            throw new IndexOutOfBoundsException();
@@ -124,16 +159,30 @@ public class ListaDobleEncadenada<E> extends AbstractLista<E> {
            current.next.prev=current.prev;
        }return removeData;
    }
+
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @param element
+     */
    public void set(int index, E element){
 
    }
 
+    /**
+     * Método de la interfaz de Lista
+     */
    public void clear(){
        head=null;
        tail=null;
        size=0;
    }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param element
+     * @return -1
+     */
    public int indexOf(E element){
     return -1;
    }

@@ -17,14 +17,27 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         this.count = 0;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @return count
+     */
     public int size(){
         return count;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @return count = 0;
+     */
     public boolean isEmpty(){
         return count ==0;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param value
+     * @return true or false
+     */
     @Override
     public boolean contains(E value) {
         Node<E> current = head;
@@ -37,6 +50,10 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         return false;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param element
+     */
     public void add(E element){
         if(head == null){
             head = new Node<E>(element);
@@ -50,6 +67,11 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         count++;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @param element
+     */
     public void add(int index, E element){
         if (index<0|| index> count){
             throw new IndexOutOfBoundsException();
@@ -71,6 +93,11 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         count++;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @return dato numerico
+     */
     public E remove(int index){
         if(index <0 ||index>= count){
             throw new IndexOutOfBoundsException();
@@ -91,6 +118,11 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         return removeData;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @return dato numerico
+     */
     public E get(int index){
         if(index<0||index>=count){
             throw new IndexOutOfBoundsException();
@@ -102,11 +134,19 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         return current.data;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     */
     public void clear(){
         head = null;
         count=0;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param element
+     * @return -1
+     */
     public int indexOf(E element){
         int index = 0;
         Node<E> current = head;
@@ -120,6 +160,11 @@ public class ListaEncadenada<E> extends AbstractLista<E> {
         return -1;
     }
 
+    /**
+     * Método de la interfaz de Lista
+     * @param index
+     * @param element
+     */
     public void set(int index, E element){
         if(index<0||index>=count){
             throw new IndexOutOfBoundsException();
