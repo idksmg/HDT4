@@ -8,6 +8,11 @@ import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class Main {
+    /**
+     * Este metodo asjd
+     * @param args
+     * ajssaddashjasd
+     */
     public static void main(String[] args){
         FactoryStack<String> sFractory = new FactoryStack<String>();
         ArrayList<Character> listaDeCadenas = new ArrayList<Character>();
@@ -44,7 +49,7 @@ public class Main {
                 } else if (opcion.equals("VEC")) {
                     System.out.println(myCalculator.Calculate(listaDeCadenas));
                 } else if (opcion.equals("LIST")) {
-                    int resultado = myCalculator.CalculateList();
+                    int resultado = myCalculator.CalculateList(listaDeCadenas);
                     System.out.println(resultado);
                 }
             }
