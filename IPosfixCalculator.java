@@ -4,4 +4,5 @@ public interface IPosfixCalculator<T> {
 
     public List<Character> infixToPostfix(List<Character> infix);
     public int Calculate(java.util.ArrayList<Character> postfix_expression);
+    public int CalculateList();
 }

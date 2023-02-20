@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.*;
 import java.util.Stack;
+import java.util.List;
 public class Calculadora<T> implements IPosfixCalculator<T>{
+
 
     public List<Character> infixToPostfix(List<Character> infix){
         Map<Character, Integer>precedence = new HashMap<>();
@@ -77,5 +79,69 @@ public class Calculadora<T> implements IPosfixCalculator<T>{
 
         return stack.pop();
     }
+
+    private static class Node {
+        private final char value;
+        private Node next;
+
+        public Node(char value) {
+            this.value = value;
+            this.next = null;
+        }
+    }
+
+
+    private final List<Character> expression;
+    private Node head;
+
+    public Calculadora(List<Character> expression){
+        this.expression=expression;
+    }
+
+    public int CalculateList(){
+        buildList();
+        Node node = head;
+        while (node != null){
+            char value = node.value;
+            if(Character.isDigit(value)){
+                stack.push(Character.getNumericValue(value));
+            }else {
+                int operando2 = stack.pop();
+                int operando1 = stack.pop();
+                int resultado = applyOperator(value, operando1, operando2);
+                stack.push(resultado);
+            }
+            node = node.next;
+        }
+        return stack.pop();
+    }
+    private void buildList(){
+        Node prev = null;
+        for(int i= expression.size()-1; i>=0; i++){
+            char value = expression.get(i);
+            Node node = new Node(value);
+            node.next = prev;
+            prev = node;
+        }
+        head = prev;
+    }
+
+    private int applyOperator(char operator, int operando1, int operando2){
+        switch (operator){
+            case '+':
+                return operando1+operando2;
+            case '-':
+                return operando1-operando2;
+            case '*':
+                return operando1*operando2;
+            case '/':
+                return operando1/operando2;
+            default:
+                throw new IllegalArgumentException("Operando desconocido" + operator);
+        }
+    }
+
+    private final Stack<Integer> stack = new Stack<>();
+
 }
 
