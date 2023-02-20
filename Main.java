@@ -9,9 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class Main {
     /**
-     * Este metodo asjd
+     *
      * @param args
-     * ajssaddashjasd
      */
     public static void main(String[] args){
         FactoryStack<String> sFractory = new FactoryStack<String>();
@@ -31,6 +30,7 @@ public class Main {
         if(fpath == ""){
             fpath = "C:\\codigo\\SEMESTRE 3\\Calculator\\datos.txt";
         }
+
         try{
             File myObj = new File(fpath);
             Scanner myReader = new Scanner(myObj);

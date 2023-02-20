@@ -4,52 +4,63 @@ import java.util.Stack;
 import java.util.List;
 public class Calculadora<T> implements IPosfixCalculator<T> {
 
-
-    public List<Character> infixToPostfix(List<Character> infix) {
-        Map<Character, Integer> precedence = new HashMap<>();
-        precedence.put('^', 3);
-        precedence.put('*', 2);
-        precedence.put('/', 2);
-        precedence.put('+', 1);
-        precedence.put('-', 1);
-
+    /**
+     * Este método convierte expresiones Infix a Postfix
+     * @param infix
+     * @return un Array de tipo Character con la expresión postfix
+     */
+    public List<Character> infixToPostfix(ArrayList<Character> infix) {
         List<Character> postfix = new ArrayList<>();
-        Deque<Character> operatorStack = new ArrayDeque<>();
+        Deque<Character> stack = new ArrayDeque<>();
 
-        for (int i = 0; i < infix.size(); i++) {
-            char c = infix.get(i);
+        for (Character c : infix) {
             if (Character.isLetterOrDigit(c)) {
                 postfix.add(c);
             } else if (c == '(') {
-                operatorStack.push(c);
+                stack.push(c);
             } else if (c == ')') {
-                while (!operatorStack.isEmpty() && operatorStack.peek() != '(') {
-                    postfix.add(operatorStack.pop());
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    postfix.add(stack.pop());
                 }
-                if (!operatorStack.isEmpty() && operatorStack.peek() != '(') {
-                    throw new IllegalArgumentException("Expresion invalida");
+                if (!stack.isEmpty() && stack.peek() != '(') {
+                    throw new IllegalArgumentException("Invalid infix expression");
                 } else {
-                    operatorStack.pop();
+                    stack.pop();
                 }
             } else {
-                while (!operatorStack.isEmpty() && precedence.get(c) <= precedence.get(operatorStack.peek())) {
-                    if (operatorStack.peek() == '(') {
-                        throw new IllegalArgumentException("Expresion invalida");
-                    }
-                    postfix.add(operatorStack.pop());
+                while (!stack.isEmpty() && precedence(c) <= precedence(stack.peek())) {
+                    postfix.add(stack.pop());
                 }
-                operatorStack.push(c);
+                stack.push(c);
             }
+        }
 
-        }
-        while (!operatorStack.isEmpty()) {
-            if (operatorStack.peek() == '(') {
-                throw new IllegalArgumentException("Expresion invalida");
+        while (!stack.isEmpty()) {
+            if (stack.peek() == '(') {
+                throw new IllegalArgumentException("Invalid infix expression");
             }
-            postfix.add(operatorStack.pop());
+            postfix.add(stack.pop());
         }
+
         return postfix;
     }
+
+    private static int precedence(Character c) {
+        switch (c){
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
+
 
     @Override
     public int Calculate(ArrayList<Character> postfix) {
